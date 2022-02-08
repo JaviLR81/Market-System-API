@@ -38,7 +38,7 @@ class Product extends Model
         return $this->belongsTo(Seller::class);
     }
 
-    // Un producto tiene muchas transaccciones
+    // Un producto tiene muchas transaccciones, esta presente en muchas transacciones
     public function transactions(){
         return $this->hasMany(Transaction::class);
     }

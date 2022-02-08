@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -18,6 +19,8 @@ class User extends Authenticatable
     const USUARIO_ADMINISTRADOR = 'true';
     const USUARIO_REGULAR = 'false';
 
+    protected $table = 'users';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -28,7 +31,7 @@ class User extends Authenticatable
         'email',
         'password',
         'verified',
-        'verification_token',
+        'verification_token', // Para verificar email
         'admin',
     ];
 
@@ -60,8 +63,8 @@ class User extends Authenticatable
         return $this->admin == User::USUARIO_ADMINISTRADOR;
     }
 
-    public function generarVerificationToken(){
-        return  rand(40);
+    public static function generarVerificationToken(){
+        return  Str::random(40);
     }
 
 }
