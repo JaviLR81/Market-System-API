@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Seller;
 
+use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Controller;
 use App\Models\Seller;
 use Illuminate\Http\Request;
 
-class SellerController extends Controller
+class SellerController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -20,10 +21,8 @@ class SellerController extends Controller
 
         $vendedores = Seller::has('products')->get();
 
-        return response()->json(['data' => $vendedores ]);
-
-        // $vendedores = Seller::has('products')->get();
-        // return $this->showAll($vendedores);
+        // return response()->json(['data' => $vendedores ]);
+        return $this->showAll($vendedores);
 
 
     }
@@ -40,9 +39,8 @@ class SellerController extends Controller
     {
         //
         $vendedor = Seller::has('products')->findOrFail($id);
-        return response()->json(['data' => $vendedor ]);
-
-        // return $this->showOne($seller);
+        // return response()->json(['data' => $vendedor ]);
+        return $this->showOne($vendedor);
     }
 
 

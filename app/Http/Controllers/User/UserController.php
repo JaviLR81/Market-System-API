@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class UserController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +19,8 @@ class UserController extends Controller
         //
         $usuarios = User::all();
 
-        return response()->json(['data' => $usuarios],200);
+        // return response()->json(['data' => $usuarios],200);
+        return $this->showAll($usuarios);
     }
 
 
@@ -47,8 +49,8 @@ class UserController extends Controller
 
         $usuario = User::create($campos);
 
-        return  response()->json($usuario, 201);
-        // return $this->showOne($usuario, 201);
+        // return  response()->json($usuario, 201);
+        return $this->showOne($usuario, 201);
     }
 
     /**
@@ -62,7 +64,8 @@ class UserController extends Controller
         //
         $usuario = User::findOrFail($id);
 
-        return response()->json(['data' => $usuario],200);
+        // return response()->json(['data' => $usuario],200);
+        return $this->showOne($usuario);
     }
 
     /**
@@ -119,8 +122,8 @@ class UserController extends Controller
 
         $user->save();
 
-        // return $this->showOne($user);
-        return response()->json(['data' => $user],200);
+        return $this->showOne($user);
+        // return response()->json(['data' => $user],200);
     }
 
     /**
@@ -136,7 +139,8 @@ class UserController extends Controller
 
         $user->delete();
 
-        return response()->json(['data' => 'Usuario eliminado correctamente'],200);
+        // return response()->json(['data' => 'Usuario eliminado correctamente'],200);
+        return $this->showOne($user);
 
         // if ($user->esVerificado()) {
         //     return $this->errorResponse('Este usuario ya ha sido verificado.', 409);
