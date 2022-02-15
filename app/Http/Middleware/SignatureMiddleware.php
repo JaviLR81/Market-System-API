@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Http\Middleware;
+
+use Closure;
+use Illuminate\Http\Request;
+
+class SignatureMiddleware
+{
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
+     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+     */
+
+    // Al agregar cabeceras personalizadas a las normales de http
+    // Se recomienda agregarles una X al principio
+    public function handle(Request $request, Closure $next, $header = 'X-Name')
+    {
+        $response =  $next($request);
+
+        $response->headers->set($header,config('app.name'));
+
+        return $response;
+    }
+}

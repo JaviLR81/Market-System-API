@@ -32,6 +32,8 @@ class DatabaseSeeder extends Seeder
         Transaction::truncate();
         DB::table('category_product')->truncate();
 
+        // Apagando los eventos relacionados a los modelos
+        // Mientras los seeders se ejecutan
         User::flushEventListeners();
         Category::flushEventListeners();
         Product::flushEventListeners();
