@@ -20,6 +20,12 @@ class Category extends Model
         'description',
     ];
 
+    // Ocultando el atributo pivot
+    protected $hidden = [
+        'pivot'
+    ];
+
+
     // Muchos a muchos
     public function products(){
         return $this->belongsToMany(Product::class);
