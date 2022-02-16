@@ -31,7 +31,7 @@ trait ApiResponser
         //
 		$collection = $this->filterData($collection, $transformer);
 		$collection = $this->sortData($collection, $transformer);
-		// $collection = $this->paginate($collection);
+		$collection = $this->paginate($collection);
 		$collection = $this->transformData($collection, $transformer);
 		// $collection = $this->cacheResponse($collection);
 
@@ -77,31 +77,35 @@ trait ApiResponser
 		return $collection;
 	}
 
-	// protected function paginate(Collection $collection)
-	// {
-	// 	$rules = [
-	// 		'per_page' => 'integer|min:2|max:50'
-	// 	];
+    // Paginando colecciones de eloquent o colecciones simples
+    // Qué es lo que estan devolviendo nuestros métodos
+	protected function paginate(Collection $collection)
+	{
+		$rules = [
+			'per_page' => 'integer|min:2|max:50'
+		];
 
-	// 	Validator::validate(request()->all(), $rules);
+		Validator::validate(request()->all(), $rules);
 
-	// 	$page = LengthAwarePaginator::resolveCurrentPage();
+        // Resolver la página actual
+		$page = LengthAwarePaginator::resolveCurrentPage();
 
-	// 	$perPage = 15;
-	// 	if (request()->has('per_page')) {
-	// 		$perPage = (int) request()->per_page;
-	// 	}
+		$perPage = 15;
+		if (request()->has('per_page')) {
+			$perPage = (int) request()->per_page;
+		}
 
-	// 	$results = $collection->slice(($page - 1) * $perPage, $perPage)->values();
+		$results = $collection->slice(($page - 1) * $perPage, $perPage)->values();
 
-	// 	$paginated = new LengthAwarePaginator($results, $collection->count(), $perPage, $page, [
-	// 		'path' => LengthAwarePaginator::resolveCurrentPath(),
-	// 	]);
+		$paginated = new LengthAwarePaginator($results, $collection->count(), $perPage, $page, [
+			'path' => LengthAwarePaginator::resolveCurrentPath(),
+		]);
 
-	// 	$paginated->appends(request()->all());
+        // Agregando a la data actual de la URI
+		$paginated->appends(request()->all());
 
-	// 	return $paginated;
-	// }
+		return $paginated;
+	}
 
 	protected function transformData($data, $transformer)
 	{
