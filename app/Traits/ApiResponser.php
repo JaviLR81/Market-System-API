@@ -26,12 +26,13 @@ trait ApiResponser
 			return $this->successResponse(['data' => $collection], $code);
 		}
 
-		// $transformer = $collection->first()->transformer;
+        // Obteniendo el transformador que necesitamos
+		$transformer = $collection->first()->transformer;
 
 		// $collection = $this->filterData($collection, $transformer);
 		// $collection = $this->sortData($collection, $transformer);
 		// $collection = $this->paginate($collection);
-		// $collection = $this->transformData($collection, $transformer);
+		$collection = $this->transformData($collection, $transformer);
 		// $collection = $this->cacheResponse($collection);
 
 
@@ -40,8 +41,8 @@ trait ApiResponser
 
 	protected function showOne(Model $instance, $code = 200)
 	{
-		// $transformer = $instance->transformer;
-		// $instance = $this->transformData($instance, $transformer);
+		$transformer = $instance->transformer;
+		$instance = $this->transformData($instance, $transformer);
 
 		return $this->successResponse($instance, $code);
 	}
@@ -100,12 +101,12 @@ trait ApiResponser
 	// 	return $paginated;
 	// }
 
-	// protected function transformData($data, $transformer)
-	// {
-	// 	$transformation = fractal($data, new $transformer);
+	protected function transformData($data, $transformer)
+	{
+		$transformation = fractal($data, new $transformer);
 
-	// 	return $transformation->toArray();
-	// }
+		return $transformation->toArray();
+	}
 
 	// protected function cacheResponse($data)
 	// {
