@@ -90,3 +90,6 @@ Route::resource('sellers.transactions',SellerTransactionController::class, ['onl
  * Users
  */
 Route::resource('users',UserController::class,['except' => ['create','edit']]);
+
+
+Route::post('oauth/token', '\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken');
