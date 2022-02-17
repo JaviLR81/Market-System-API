@@ -4,10 +4,20 @@ namespace App\Http\Controllers\Category;
 
 use App\Http\Controllers\ApiController;
 use App\Models\Category;
+use App\Transformers\CategoryTransformer;
 use Illuminate\Http\Request;
 
 class CategoryController extends ApiController
 {
+
+
+    public function __construct()
+    {
+        // Llamar al constructor del padre para no perder alguna tarea del padre
+        parent::__construct();
+        $this->middleware('transform.input:' . CategoryTransformer::class)->only(['store', 'update']);
+    }
+
     /**
      * Display a listing of the resource.
      *

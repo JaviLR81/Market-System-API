@@ -58,6 +58,7 @@ class UserTransformer extends TransformerAbstract
             'identificador' => 'id',
             'nombre' => 'name',
             'correo' => 'email',
+            'contraseña' => 'password',
             'esVerificado' => 'verified',
             'esAdministrador' => 'admin',
             'fechaCreacion' => 'created_at',
@@ -68,19 +69,20 @@ class UserTransformer extends TransformerAbstract
         return isset($attributes[$index]) ? $attributes[$index] : null;
     }
 
-    // public static function transformedAttribute($index)
-    // {
-    //     $attributes = [
-    //         'id' => 'identificador',
-    //         'name' => 'nombre',
-    //         'email' => 'correo',
-    //         'verified' => 'esVerificado',
-    //         'admin' => 'esAdministrador',
-    //         'created_at' => 'fechaCreacion',
-    //         'updated_at' => 'fechaActualizacion',
-    //         'deleted_at' => 'fechaEliminacion',
-    //     ];
+    public static function transformedAttribute($index)
+    {
+        $attributes = [
+            'id' => 'identificador',
+            'name' => 'nombre',
+            'email' => 'correo',
+            'password' => 'contraseña',
+            'verified' => 'esVerificado',
+            'admin' => 'esAdministrador',
+            'created_at' => 'fechaCreacion',
+            'updated_at' => 'fechaActualizacion',
+            'deleted_at' => 'fechaEliminacion',
+        ];
 
-    //     return isset($attributes[$index]) ? $attributes[$index] : null;
-    // }
+        return isset($attributes[$index]) ? $attributes[$index] : null;
+    }
 }
