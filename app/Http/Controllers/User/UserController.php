@@ -14,7 +14,13 @@ class UserController extends ApiController
     public function __construct()
     {
         // Llamar al constructor del padre para no perder alguna tarea del padre en su constructor
-        parent::__construct();
+        // parent::__construct();
+        // Comentamos el constructor del padre ya que no queremos usar el middleware que el Padre esta heredando
+        // a los hijos
+        $this->middleware('client.credentials')->only(['store','verify','resend']);
+        $this->middleware('auth:api')->except(['store','verify','resend']);
+
+
         $this->middleware('transform.input:' . UserTransformer::class)->only(['store', 'update']);
     }
 

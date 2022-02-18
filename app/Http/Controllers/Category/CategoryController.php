@@ -13,8 +13,11 @@ class CategoryController extends ApiController
 
     public function __construct()
     {
-        // Llamar al constructor del padre para no perder alguna tarea del padre
-        parent::__construct();
+        // Utilizando el middleware de client credentiales
+        $this->middleware('client.credentials')->only(['index', 'show']);
+        // Utilizando el middleware de auth:api no se hereda del padre por que no queremos proteger todo
+        $this->middleware('auth:api')->except(['index', 'show']);
+
         $this->middleware('transform.input:' . CategoryTransformer::class)->only(['store', 'update']);
     }
 
